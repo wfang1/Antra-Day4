@@ -426,8 +426,206 @@ console.log(extractUnique(qSixteen));
 //Question 17:
 const qSeventeen = "thequickbrownfoxjumpsoverthelazydog";
 
+class letterCount {
+    constructor(letter, count = 0) {
+        this.letter = letter;
+        this.count = count;
+    }
+
+    increment() {
+        ++this.count;
+    }
+
+    print() {
+        console.log("Letter: " + this.letter + ", Count: " + this.count);
+    }
+}
+
+function incrementInstance(key, array) {
+    for(member of array) {
+        if(member.letter === key) {
+            member.increment();
+            return true;
+        }
+    }
+
+    return false;
+}
+
 function countLetter (string) {
     // create an array of objects to store
-
+    let countArray = [];
     // iterate through the string
+    for(let i = 0; i < string.length; ++i) {
+        let letter = string.charAt(i);
+
+        // if we can't find an instance, add it
+        if(!incrementInstance(letter, countArray))
+            countArray.push(new letterCount(letter, 1));
+    }
+
+    printCountArray(countArray);
 }
+
+function printCountArray(array) {
+    for(member of array) {
+        member.print();
+    }
+}
+
+console.log("Question 17:");
+countLetter(qSeventeen);
+
+//Question 18:
+const qEighteen = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+function binarySearchLoop(array, search, beginning, ending) {
+    let searchResults = -1;
+
+    if(beginning > ending)
+        return searchResults;
+
+    let middle = Math.floor((beginning + ending) / 2);
+
+    if (array[middle] === search) {
+        return middle;
+    }
+    if (array[middle] > search)
+        return binarySearchLoop(array, search, beginning, ending-1);
+    else
+        return binarySearchLoop(array, search, beginning+1, ending);
+}
+
+function binarySearch(array, search) {
+    return binarySearchLoop(array, search, 0, array.length);
+}
+
+console.log("Question 18:");
+console.log(binarySearch(qEighteen, 9));
+
+//Question 19:
+const qNineteen = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+function findLarger(array, number) {
+    let results = [];
+
+    for(numbers of array) {
+        if(numbers > number)
+            results.push(numbers);
+    }
+
+    return results;
+}
+
+console.log("Question 19:");
+console.log(findLarger(qNineteen, 4));
+
+//Question 20:
+const qTwenty = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+function generateStringID(length, sample) {
+    let result = '';
+    let sampleSize = sample.length -1;
+
+    // repeat until we have fulfilled length
+    for(let i = 0; i < length; ++i) {
+        result += sample.charAt(Math.random() * sampleSize);
+    }
+
+    return result;
+}
+
+console.log("Question 20:");
+console.log(generateStringID(5, qTwenty));
+
+//Question 21:
+const qTwentyOne = [1, 2, 3];
+
+function findSubsets(array, length) {
+    let result = [[]];
+
+    for(number of array) {
+        let size = array.length;
+        for(let i = 0; i < size; ++i) {
+            result.push([...result[i], number]);
+        }
+    }
+
+    return result;
+}
+
+console.log("Question 21:");
+console.log(findSubsets(qTwentyOne, 2));
+
+//Question 22:
+const qTwentyTwo = 'microsoft.com';
+const lTwentyTwo = 'o';
+
+function countLetters(string, letter) {
+    let result = 0;
+    for(let i = 0; i < string.length; ++i) {
+        if(string.charAt(i) === letter)
+            ++result;
+    }
+    return result;
+}
+
+console.log('Question 22:');
+console.log(countLetters(qTwentyTwo, lTwentyTwo));
+
+//Question 23:
+const qTwentyThree = 'abacddbec';
+
+function findUniqueLetter(string) {
+    let result = '';
+    for(let i = 0; i < string.length; ++i) {
+        if(checkUnique(string, string.charAt(i)) === true) {
+            result = string.charAt(i);
+            break;
+        }
+    }
+
+    return result;
+}
+
+function checkUnique(string, letter) {
+    let count = 0;
+
+    for(let i = 0; i < string.length; ++i) {
+        if(string.charAt(i) === letter)
+            ++count;
+    }
+
+    if(count > 1)
+        return false;
+    else
+        return true;
+}
+
+console.log("Question 23:");
+console.log(findUniqueLetter(qTwentyThree));
+
+
+//Question 24:
+
+//Question 25:
+const qTwentyFive = ["Australia", "Germany", "United States of America"];
+
+function returnLongest(array) {
+    let largest = 0;
+    let result = '';
+
+    for(member of array) {
+        if(member.length > largest) {
+            largest = member.length;
+            result = member;
+        }
+    }
+
+    return result;
+}
+
+console.log("Question 25:");
+console.log(returnLongest(qTwentyFive));
+
+//Question 26:
