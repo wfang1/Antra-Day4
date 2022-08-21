@@ -607,6 +607,39 @@ console.log(findUniqueLetter(qTwentyThree));
 
 
 //Question 24:
+const qTwentyFour =  [12, 345, 4, 546, 122, 84, 98, 64, 9, 1, 3223, 455, 23, 234, 213];
+
+function bubbleSort(array) {
+    let sorted = true;
+    for(let i = 0; i < array.length; ++i) {
+        if(checkRight(array, i)) {
+            let temp = array[i];
+            array[i] = array[i+1];
+            array[i+1] = temp;
+            sorted = false;
+        }
+    }
+
+    if(sorted === true)
+        return array;
+    else
+        return bubbleSort(array);
+}
+
+// returns boolean of whether to swap or not
+function checkRight(array, index) {
+    if(array.length - 1 <= index)
+        return false;
+
+    if(array[index] < array[index+1])
+        return true;
+    else
+        return false;  
+}
+
+console.log('Question 24:');
+console.log(bubbleSort(qTwentyFour));
+
 
 //Question 25:
 const qTwentyFive = ["Australia", "Germany", "United States of America"];
@@ -629,3 +662,87 @@ console.log("Question 25:");
 console.log(returnLongest(qTwentyFive));
 
 //Question 26:
+const qTwentySix = 'australia';
+
+function longestNoRepeat(string) {
+    let stringArray = [];
+    
+    for(let i = 0; i < string.length; ++i) {
+        let prospect = '';
+        for(let j = i; j < string.length; ++j) {
+            let letter = string.charAt(j);
+            if(checkExist(prospect, letter)) {
+                stringArray.push(prospect);
+                break;
+            }
+            else {
+                prospect += letter;
+            }
+        }
+    }
+
+    return returnLongest(stringArray);
+}
+
+function checkExist(string, letter) {
+    let count = 0;
+
+    for(let i = 0; i < string.length; ++i) {
+        if(string.charAt(i) === letter)
+            ++count;
+    }
+
+    if(count > 0)
+        return true;
+    else
+        return false;
+}
+
+console.log('Question 26:');
+console.log(longestNoRepeat(qTwentySix));
+
+//Question 27:
+const qTwentySeven = 'banana';
+
+//i hope you don't currently care about optimization
+function longestPalindrome(string) {
+    let sArray = stringCombinations(string);
+    let pArray = [];
+
+    for(substring of sArray) {
+        // create a new array of only palindromes
+        if(palindrome(substring) === true)
+            pArray.push(substring);
+    }
+
+    return returnLongest(pArray);
+}
+
+console.log('Question 27:');
+console.log(longestPalindrome(qTwentySeven));
+
+//Question 28:
+const qTwentyEight = () => {
+    return "Doesn't Javascript already do this?";
+}
+
+function passFunction(func) {
+    let string = func();
+    console.log(string);
+}
+
+console.log('Question 28:');
+passFunction(qTwentyEight);
+
+//Question 29:
+function qTwentyNine() {
+    getFunctionName();
+    return "You shouldn't see this string";
+}
+
+function getFunctionName() {
+    console.log(getFunctionName.caller.name);
+}
+
+console.log('Question 29:');
+qTwentyNine();
