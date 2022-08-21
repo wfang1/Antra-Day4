@@ -541,14 +541,17 @@ console.log(generateStringID(5, qTwenty));
 //Question 21:
 const qTwentyOne = [1, 2, 3];
 
-function findSubsets(array, length) {
-    let result = [[]];
+//I hope you don't care about optimization here either
+const getAllSubsets = theArray => 
+theArray.reduce((subsets, value) => subsets.concat(subsets.map(set => [value, ...set])), [[]]);
 
-    for(number of array) {
-        let size = array.length;
-        for(let i = 0; i < size; ++i) {
-            result.push([...result[i], number]);
-        }
+function findSubsets(array, length) {
+    let subsetsArray = getAllSubsets(array);
+    let result = [];
+
+    for(subset of subsetsArray) {
+        if(subset.length === length)
+            result.push(subset);
     }
 
     return result;
